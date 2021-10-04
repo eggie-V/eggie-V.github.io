@@ -117,6 +117,12 @@ footer {
   width:  100 px;
 }
 
+@media (max-width: 800px) {
+  .flex-item-right, .flex-item-left {
+    flex: 100%;
+  }
+}
+
 /*Service Page */
 .service{
   border-style: solid;
