@@ -1,0 +1,43 @@
+<!-- cascading style sheets -->
+
+/*.uniform {
+	background-color: #fcbe03;
+	border: 2px solid cyan;
+	border-color: #8a6325;
+	width: 100%;
+	font-size: 80%;
+	font-family: verdana;
+	display:  block;
+	text-align: center;
+	margin: 0.5em;
+}*/
+
+song{
+	border: 20px solid black;
+	border-style: dashed;
+	display: block;
+	text-align: center;
+	font: "Times New Roman", Times, serif;
+}
+artist, song_title, genre, year{
+	display: block;
+	text-align: center;
+	width: 60%;
+	background-color: #e0e094;
+}
+
+artist{
+	background-color: beige;
+	text-align: center;
+	width: 60%;
+	padding: 3px;
+}
+song_title{
+	font-style: italic;
+	font-size: xx-large;
+}
+
+/*title{
+	font-family: Verdana;
+	padding: 2em;
+}*/
