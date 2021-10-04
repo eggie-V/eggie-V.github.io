@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="design.css"?>
+<songList id = "uniform">
+   <song>
+      <artist> The Rose </artist>
+      <song_title> Red </song_title>
+      <genre> Kpop </genre>
+      <year> 2019 </year>
+   </song>
+   <song>
+      <artist> Taeyeon </artist>
+      <song_title> Fine </song_title>
+      <genre> Kpop </genre>
+      <year> 2017 </year>
+   </song>
+   <song>
+      <artist> BTS </artist>
+      <song_title> Film Out </song_title>
+      <genre> Kpop </genre>
+      <year> 2021 </year>
+   </song>
+   <song>
+      <artist> UMI </artist>
+      <song_title> Love Affair </song_title>
+      <genre> Pop </genre>
+      <year> 2019 </year>
+   </song>
+   <song>
+      <artist> Willow </artist>
+      <song_title> Time Machine </song_title>
+      <genre> Pop </genre>
+      <year> 2019 </year>
+   </song>
+   <song>
+      <artist> Cigarretes After Sex </artist>
+      <song_title> Apocalypse </song_title>
+      <genre> Band </genre>
+      <year> 2017 </year>
+   </song>
+   <song>
+      <artist> Emotional Oranges </artist>
+      <song_title> Just Like You </song_title>
+      <genre> Pop </genre>
+      <year> 2019 </year>
+   </song>
+   <song>
+      <artist> Kenshi Yonezu </artist>
+      <song_title> Pale Blue </song_title>
+      <genre> JPop </genre>
+      <year> 2019 </year>
+   </song>
+   <song>
+      <artist> Ethan Chan </artist>
+      <song_title> Insomnia </song_title>
+      <genre> Cpop </genre>
+      <year> 2001 </year>
+   </song>
+   <song>
+      <artist> Mayday </artist>
+      <song_title> If we have never met </song_title>
+      <genre> Cpop </genre>
+      <year> 2016 </year>
+ 	</song>
+</songList>
