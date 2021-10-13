@@ -41,7 +41,6 @@
 			} else{
 				alert("Order Successfully placed!");
 			}
-			document.getElementbyId("hotdog_q").innerHTML=num_hotdog;
 		}
 
 		// function order_french_fries(): Users are prompted to input the number of french fries one would like to order 
@@ -77,9 +76,17 @@
 
 		function display(){
 			calc_total();
-			document.getElementbyId("hotdog_q").value=num_hotdog;
-			alert("display fucntoin working");
-			document.getElementById("hot_dog").innerHTML="You have ordered hot dogs: "+num_hotdog+" hot dogs.";
+			alert("You are about to see the receipt.");
+			document.write("Items ordered: " + "<br>" +
+                   "- Hotdog: x" + num_hotdog + "<br>" +
+                   "- Fries: x" + num_fries + "<br>" +
+                   "- Drink: x" + num_drinks + "<br>" + "<br>")
+			document.write("----------------------------" + "<br>" +
+                   "SUBTOTAL: $" + flat_total.toFixed(2) + "<br>" +
+                   "TAX: $" + tax.toFixed(2) + "<br>" +
+                   "TOTAL DUE: $" + tax_total.toFixed(2) + 
+                   "<br>");
+			document.write("Refresh page to place more orders. Thank you for shopping with Joe's Hot Dog.");
+		}
 			
-			// $('#price').addClass(num_hotdog);
 
