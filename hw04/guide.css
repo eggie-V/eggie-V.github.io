@@ -1,0 +1,93 @@
+<!-- cascading style sheets -->
+
+
+
+#hot_dog {
+    text-align: center;
+    background-color: #f5f5dc;
+    border: none;
+    color: #000000;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: auto;
+    cursor: pointer;
+
+}
+
+#fries {
+    ttext-align: center;
+    background-color: #f5f5dc;
+    border: none;
+    color: #000000;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: auto;
+    cursor: pointer;
+}
+
+#drinks {
+    text-align: center;
+    background-color: #f5f5dc;
+    border: none;
+    color: #000000;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: auto;
+    cursor: pointer;
+}
+
+#cashier{
+    position: center;
+    background-color: #F5F5DC;
+    border: none;
+    color: #000000;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: auto;
+    cursor: pointer;
+}
+
+#receipt{
+    position: center;
+    background-color: #F5F5DC;
+    border: groove;
+    color: #000000;
+    padding: 30px 64px;
+    text-align: center;
+    text-decoration: none;
+    display: table-header-group;
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+#total{
+    position: right;
+    background-color: #f5f5dc;
+    border: none;
+    color: #000000;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+table, th, td {
+  border:1px solid black;
+}
