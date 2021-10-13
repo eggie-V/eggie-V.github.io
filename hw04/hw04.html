@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title> Joe's Hotdog</title>
+	<link rel="stylesheet" href="guide.css">
+	<style>
+	h1{
+		background-color: #f5f5dc;
+		text-align: center;
+	}
+	body{
+		background-image: url('background.jpeg');
+
+	}
+	</style>
+</head>
+
+
+<body>
+	<h1 style=“font-family: sans-serif” text-align:center>Welcome to Joe's Hot Dog! </h1>	
+	<button id = "cashier" onclick="cashier_order()"> Cashier to place all your orders.</button>
+	<br/>
+	<!-- p id="hot_dog"> You currently have not ordered hot dogs. </p> 
+	<p id="fries"> You currently have not ordered fries.</p> 
+	<p id="drinks"> You currently have not ordered fries. </p> <br/> -->
+	<br/>
+	<table id = "receipt">
+                <thead>
+                    <tr>
+                        <th id="quantity">Quantity.</th>
+                        <th class="description">Item</th>
+                        <th class="uni_price">Unit Price</th>
+                        <th id="price">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="hotdoq_q"></td>
+                        <td class="description">Hot Dog</td>
+                        <td class="uni_price">$3.70</td>
+                        <td id="price"> </td>
+                    </tr>
+                    <tr>
+                        <td id="fries_q"></td>
+                        <td class="description">French Fries</td>
+                        <td class="uni_price">$2.50</td>
+                        <td id="price"> </td>	
+                    </tr>
+                    <tr>
+                        <td id="drink_q"></td>
+                        <td class="description">Drinks</td>
+                        <td class="uni_price">$1.50</td>
+                        <td id="price"> </td>
+                    </tr>
+                    <tr>
+                        <td id="quantity">--</td>
+                        <td class="description">Subtotal / flat_total</td>
+                        <td class="uni_price"> -- </td>
+                        <td id="price"> -- </td>
+                    </tr>
+                    <tr>x
+                        <td id="quantity"> -- </td>
+                        <td class="description">Tax</td>
+                        <td class="uni_price"> -- </td>
+                        <td id="price"> -- </td>
+                    </tr>
+                    <tr>
+                        <td id="quantity"> -- </td>
+                        <td class="description">Total / tax total</td>
+                        <td class="uni_price"> -- </td>
+                        <td id="price"> -- </td>
+                    </tr>
+                </tbody>
+            </table> <br/>
+            <button id = "total" onclick="display()"> I am ready to pay!</button>
+
+		<!-- // Display all order information on the page including: Items ordered, quantities, subtotal, discount if applicable, tax and total. All currency values must be rounded to 2 decimal places. -->
+	<script type="text/javascript" src = "script.js"></script>
+</body>
+</html>
