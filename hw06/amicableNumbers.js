@@ -5,7 +5,7 @@
 */
 
 function getInput(proceed){
-	event.preventDefault();
+// 	event.preventDefault();
 	var x = document.getElementById("x_Var").value;
 	var y = document.getElementById("y_Var").value;
 	if (proceed) {
