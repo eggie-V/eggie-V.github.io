@@ -13,7 +13,7 @@ function getInput(proceed){
 		// "The numbers you entered are: " + amicable);
 		if (amicable) {
 		document.getElementById("answer_statement").innerHTML = " The numbers " + x + " and " + y +" are amicable";
-		} else {
+		} else{
 			document.getElementById("answer_statement").innerHTML = " The numbers " + x + " and " + y +" are not amicable";
 		}
 	}
@@ -43,7 +43,7 @@ function getInput(proceed){
  			err = true;
  		}
  	}
-	 return err;
+	 return !err;
  }
 
 /* isFactor(): Check whether these two variables are amicable
