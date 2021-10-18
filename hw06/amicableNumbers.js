@@ -43,6 +43,7 @@ function getInput(proceed){
  			err = true;
  		}
  	}
+	 return err;
  }
 
 /* isFactor(): Check whether these two variables are amicable
