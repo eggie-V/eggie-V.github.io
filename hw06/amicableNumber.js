@@ -5,7 +5,7 @@
  */
 
  function validate() {
-//  	event.preventDefault();
+ 	event.preventDefault();
  	err = false; //default: no error
  	document.getElementById("errVariable_x").style.display = "none";
  	document.getElementById("errVariable_y").style.display = "none";
