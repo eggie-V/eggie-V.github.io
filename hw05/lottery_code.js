@@ -20,12 +20,13 @@ function generate_lucky(){
 		}
 		lottery_winner[i] = insert;
    	}
-   	lottery_winner.sort();
+   	lottery_winner.sort(function(a, b){return a-b});
    	document.getElementById("win_num").innerHTML = "Winning Number sorted: " + lottery_winner.join(" ");
    	// Generate "Lucky Ball" between 1 to 18
    	let max_ball = 18
    	var lucky_ball = Math.floor(Math.random()*(max_ball - min + 1)) + min
    	document.getElementById("ball_num").innerHTML = "The lucky ball number machine generated: " + lucky_ball;
+   	console.log(lottery_winner);
    	return lottery_winner;
 }
 
@@ -58,6 +59,7 @@ function get_num(){
 */
 function get_list(){
 	var winning_numbers = generate_lucky();
+	console.log(winning_numbers);
 	var user_lists = prompt("Please enter 5 numbers, separate by space.","i.e:1,2,3,4,5");
 	while (!user_lists) { 
 		// keep running until something is entered
@@ -65,12 +67,17 @@ function get_list(){
 		// alert("enter the while loop");
 		user_lists = prompt("Please enter 5 numbers, separate by space.","i.e:1,2,3,4,5");
 	}
-	var user_choices_list = user_lists.split(/(\s+)/);
-	user_choices_list.sort();
+	var user_choices_list = user_lists.split(/(\s+)/).filter( e => e.trim().length > 0);
+	for (let i = 0; i < 5; i++) {
+		console.log(user_choices_list[i]);
+	}
+	user_choices_list.sort(function(a, b){return a-b});
 	var num_list_matched = 0;
-	for(let i  = 0; i < winning_numbers.lengh; i++) {
+	for(let i  = 0; i < winning_numbers.length; i++) {
+		console.log(winning_numbers[i]);
+		console.log(user_choices_list[i]);
 		if (winning_numbers[i] == user_choices_list[i]){
-			num_list_matched = num_list_matched+1;
+			num_list_matched = num_list_matched + 1;
 		}
 	}
 	// console.log(num_list_matched);
@@ -86,6 +93,7 @@ function get_list(){
 */
 function calc() {
 	var num_matched = get_list(); //integer
+	console.log(num_matched);
 	// generate_lucky();
 	var lucky_matched = get_num(); //boolean 
 	var payout ="You didn't have any rewards, but thanks for playing.";
@@ -135,4 +143,6 @@ function display() {
 	// get_num(); 
 	document.getElementById("payout").innerHTML = " Your winning: " + calc();
 }
+
+
 
