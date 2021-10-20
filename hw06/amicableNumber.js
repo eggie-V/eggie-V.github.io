@@ -92,6 +92,7 @@ function getInput(proceed){
  * Return: none
  */
  function find(){
+	alert("inside find");
  	var proceed = !validate(); // proceed == true when there are NO errors
  								// proceed == false when there are errors
  	// only carries out if proceed == true
