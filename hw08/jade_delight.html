@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Jade Delight</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style type="text/css">
+	.errMsg {
+		color: #D20E11; 
+ 		border: solid 1px #d20e11;  
+ 		padding: 1px 15px;
+	}
+
+	body{
+	 	background-color: beige;
+	}
+
+	h1{
+		font-family: optima;
+		text-align: center;
+	}
+
+	p {
+		font-family: optima;
+	}
+
+	#submit{
+		 	background-color: beige;
+		 	font-size: 15px;
+	}
+
+	#order_info{
+		border: dashed;
+	 	/*box-sizing*/
+	 	overflow: hidden;
+	 	margin-top: 20px;
+	 	margin-left: 120px;
+	 	margin-right: 350px;
+	 	padding-top: 30px;
+	 	padding-bottom: 30px;
+	 	width: 80%;
+	 	text-align: center;
+	}
+
+
+</style>
+</head>
+
+<body>
+<script language="javascript">
+
+function MenuItem(name, cost)
+{
+	this.name = name;
+	this.cost=cost;
+}
+
+menuItems = new Array(
+	new MenuItem("Chicken Chop Suey", 4.5),
+	new MenuItem("Sweet and Sour Pork", 6.25),
+	new MenuItem("Shrimp Lo Mein", 5.25),
+	new MenuItem("Moo Shi Chicken", 6.5),
+	new MenuItem("Fried Rice", 2.35)
+);
+
+function makeSelect(name, minRange, maxRange)
+{
+	var t= "";
+	t = "<select name='" + name + "' size='1'>";
+	for (j=minRange; j<=maxRange; j++)
+	   t += "<option>" + j + "</option>";
+	t+= "</select>"; 
+	return t;
+}
+</script>
+<h1><img src="gif.gif" width="80px" height="auto" alt=""> Jade Delight <img src="gif.gif" width="80px" height="auto" alt=""></h1>
+<form id = "order_info">
+
+<p>First Name: <input type="text"  name='fname'/></p>
+<p>Last Name*:  <input type="text"  name='lname' /></p>
+<div id = "name_error" class = "errMsg">Please enter your last name.</div>
+<p>Street: <input type="text"  name='street' /></p>
+<p>City: <input type="text"  name='city' /></p>
+<p>Phone*: <input type="text"  name='phone' /></p>
+<div id = "phone_error" class = "errMsg">Please enter a valid phone number.</div>
+<p> 
+	<input type="radio"  name="p_or_d" value = "pickup" />Pickup  
+	<input type="radio"  name='p_or_d' value = 'delivery' checked="checked"/>Delivery
+</p>
+
+
+<!-- Header Row -->
+<table border="0" cellpadding="3">
+  <tr>
+    <th>Select Item</th>
+    <th>Item Name</th>
+    <th>Cost Each</th>
+    <th>Total Cost</th>
+  </tr>
+
+
+<!-- Creating the table below -->
+<script language="javascript">
+  var s = "";
+  for (i=0; i< menuItems.length; i++)
+  {
+	  s += "<tr><td>";
+	  s += makeSelect("quan" + i, 0, 10);
+	  s += "</td><td>" + menuItems[i].name + "</td>";
+	  s += "<td> $ " + menuItems[i].cost.toFixed(2) + "</td>";
+	  s += "<td>$<input type='text' name='cost'/></td></tr>";
+  }
+  document.writeln(s);
+</script>
+
+</table>
+<p>Subtotal: 
+   $<input type="text"  name='subtotal' id="subtotal" />
+</p>
+<p>Mass tax 6.25%:
+  $ <input type="text"  name='tax' id="tax" />
+</p>
+<p>Total: $ <input type="text"  name='total' id="total" />
+</p>
+
+<input type = "button" value = "Submit Order" id = "submit" />
+
+
+
+</form>
+</body>
+</html>
+
+<script language = "javascript">
+	$(document).ready(function() {
+
+		// When the user begins to modify the contents  
+		$("#name_error").hide();
+		$("#phone_error").hide();
+		var order_item = "";
+
+		// Script used to run select
+		$("select").change(function() {
+			var id = this.name[4]; // Shows which row is changed in the tables
+			calculateCost(menuItems[id].cost, this.value, id);
+			calculateTotal();
+			order_item += "You ordered " + this.value + " pieces of " + menuItems[id].name+ "<br>";
+		})
+
+		$('input:radio[name = "p_or_d"]').change(function(){
+			if($(this).is(":checked")){
+				$("[name = 'street']").parent().toggle();
+				$("[name = 'city']").parent().toggle();
+			} 
+		});
+
+		/* When submission button is pressed, the function:
+		   1) validate all important fields
+		   2) display a message that thanks the user for their order 
+		   		displays the order, the pickup or delivery time as well as the total amount for the order.
+		   3) display the order in a separate window/tab instead of using an alert
+		*/
+		$('#submit').on("click",function(){
+			var proceed = validate(); 
+			if (proceed) {
+				displayOrder();
+			}
+		
+		});
+
+		/* displayOrder()
+		 * Parameter: none
+		 * Return: number of items ordered, each item name
+		*/
+		function displayOrder() {
+			console.log("New Window opened");
+			var newWindow = window.open("","width = 200","length = 100");
+			var display_on_screen = "Thank you for your order! <br>";
+			display_on_screen += order_item;
+			display_on_screen += "Your total is: $" + calculateTotal().toFixed(2) + "<br>";
+			display_on_screen += estimateTime();
+			newWindow.document.write(display_on_screen);
+
+	}
+
+		/* validate()
+		 * Parameter: none
+		 * Return: error boolean -- true: error present do not proceed.
+		 * 													false: error absent proceed
+		*/
+		function validate(){
+			// Hide error messages by default
+			$("#name_error").hide();
+			$("#phone_error").hide();
+
+			var name_err = true;
+			var phone_err = true;
+			var space_err = true;
+			var order_err = true;
+
+			/* Verify that the last name and phone are entered.*/ 
+			if ($("[name = 'lname']").val().length != 0){
+				name_err = false;
+			} else {
+				$("#name_error").css("color = #FF0000");
+				$("#name_error").show();
+			}
+
+			/* The phone should be a valid phone number */
+			if ($("[name = 'phone']").val().length === 10) {
+				phone_err = false;
+				} else {
+					$("#phone_error").show();
+				}
+
+			/* If the order was “delivery”, the street and city are required;
+			   error only changed to false if these field are empty */
+			if($("input[type = 'radio'][value = 'delivery']").is(":checked")) {
+				if( ($("[name = street]").val().length != 0) && (($("[name = city]").val().length != 0))) {
+					space_err = false;
+				} else {
+					alert("The street and city are required for delivery option.");
+				}
+			} else { 
+				// pick up options do not required
+				space_err = false;
+			}
+
+			/* At Least one item must be ordered*/
+			if (calculateTotal() != 0 && calculateTotal() != NaN ) {
+				order_err = false;
+			}	else {
+				alert("You have not ordered anything!");
+			}
+		
+			if((!name_err) && (!space_err) && (!order_err) && (!phone_err)) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+			
+		/* Sub-functioncalled based on jquery command */
+
+
+
+		/* calculateTotal() 
+		 * Parameter: none
+		 * Return: none 
+		 * Modify the region for total, subtotal and tax
+		*/
+		function calculateCost(cost, quan, index) {
+			var itemCost = quan * cost; 
+			document.getElementsByName('cost')[index].value = itemCost.toFixed(2);
+
+			}
+
+		/* calculateTotal() 
+		 * Parameter: none
+		 * Return: Total
+		 * Modify the region for total, subtotal and tax
+		*/
+		function calculateTotal(){
+			var subTotal = 0;
+			for(let i = 0; i < menuItems.length; i++){
+				if (document.getElementsByName('cost')[i].value != ""){
+					subTotal += parseFloat(document.getElementsByName('cost')[i].value);
+				}
+			}
+			$("[name = 'subtotal']").val(subTotal.toFixed(2));
+			var Masstax = parseFloat(subTotal*(0.0625));
+			$("[name = 'tax']").val(Masstax.toFixed(2));
+			var Total = subTotal + Masstax;
+			$("[name = 'total']").val(Total.toFixed(2));
+			return Total;
+		}
+
+
+		/* calculateDTime()
+		 * Parameter: none
+		 * Return: Delivery time
+		*/	
+		function calculateDTime(){
+			var date = new Date();
+			var hour = date.getHours();
+			var minute = date.getMinutes();
+			if (minute >= 30) {
+				if (hour === 23) {
+					hour = parseInt(00);
+				}
+				hour = parseInt(hour + 1);
+				minute = parseInt(30 - 60 + minute);
+			} else {
+				minute = parseInt(minute + 30);
+			}
+			var time = hour + ":" + minute;
+			return time;
+		}
+
+		/* calculatePTime()
+		 * Parameter: none
+		 * Return: Pick up time
+		*/
+		function calculatePTime(){
+			var date = new Date();
+			var hour = date.getHours();
+			var minute = date.getMinutes();
+			if (minute >= 45) {
+				if (hour === 23) {
+					hour = parseInt(00);
+				}
+				hour = parseInt(hour + 1);
+				minute = parseInt(15 - 60 + minute);
+			} else {
+				minute = parseInt(minute + 15);
+			}
+			var time = hour + ":" + minute;
+			return time;
+		}
+
+
+		/* estimateTime()
+		 * Parameter: none
+		 * Return: string Time for display;  
+		*/
+		function estimateTime(){
+			var time;
+			if($("input[type = 'radio'][value = 'delivery']").is(":checked")) {
+				time = "Your delivery time is: " + calculateDTime();
+			} else {
+				time = "Your pick up time is: " + calculatePTime();
+			}
+			return time;
+		}
+
+
+}
+	)
+
+	
+
+</script>
+
+
+
+
+
+
+
