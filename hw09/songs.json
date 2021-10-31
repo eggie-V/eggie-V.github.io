@@ -1,6 +1,5 @@
 
 [
-	songLists: [
 	{
 		"artist": "The Rose",
 		"title": "Red",
@@ -61,6 +60,5 @@
 		"music_genre": ["cpop","band","spayed"],
 		"release_year": "2016"
 	}
-]
 
 ]
