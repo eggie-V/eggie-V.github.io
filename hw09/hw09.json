@@ -1,0 +1,65 @@
+// describe the artist(s), title, music genre(s), and year the song was released
+
+[
+	{
+		"artist": "The Rose",
+		"title": "Red",
+		"music_genre": ["kpop","band","pop"],
+		"release_year": "2019"
+	},
+	{
+		"artist": "Taeyeon",
+		"title": "Fine",
+		"music_genre": ["kpop","alternativ pop","ballad"],
+		"release_year": "2017"
+	},
+	{
+		"artist": "BTS",
+		"title": "Film Out",
+		"music_genre": ["kpop","jpop","ballad"],
+		"release_year": "2021"
+	},
+	{
+		"artist": "UMI",
+		"title": "Love Affair",
+		"music_genre": ["pop","indie"],
+		"release_year": "2019"
+	},
+	{
+		"artist": "Willow",
+		"title": "Time Machine",
+		"music_genre": ["pop","indie","alternative pop"],
+		"release_year": "2019"
+	},
+	{
+		"artist": "Cigarretes After Sex",
+		"title": "Apocalypse",
+		"music_genre": ["band","indie","rock"],
+		"release_year": "2017"
+	},
+	{
+		"artist": "Emotional Oranges",
+		"title": "Just like you",
+		"music_genre": ["r&b","soul"],
+		"release_year": "2019"
+	},
+	{
+		"artist": "Kenshi Yonezu",
+		"title": "Pale Blue",
+		"music_genre": ["jpop","pop"],
+		"release_year": "2019"
+	},
+	{
+		"artist": "Ethan Chan",
+		"title": "Ten Years",
+		"music_genre": ["cpop","ballad"],
+		"release_year": "2001"
+	},
+	{
+		"artist": "Mayday",
+		"title": "If we have never met",
+		"music_genre": ["cpop","band"],
+		"release_year": "2016"
+	}
+
+]
