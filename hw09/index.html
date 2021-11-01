@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Song Lists!</title>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<style type="text/css">
+
+		body{
+			background: beige;
+		}
+
+		h1 {
+			padding: 20px 30px 20px 30px;
+			border: dashed;
+			text-align: center;
+			font-family: sans-serif;
+		}
+
+		#selection {
+			padding: 32px 16px 10px 16px;
+			font-size: 24px;
+			align: center;
+		}
+		
+		#filter{
+			border-radius: 50%;
+			width: 200px;
+		}
+
+		#unfilter{
+			border-radius: 50%;
+			width: 200px;
+		}
+
+	</style>
+</head>
+	<body>
+	<h1>All of Ivian's Favorite Songs</h1>
+	<div id = "selection"></div>
+	<button id = "filter">Filter! </button>
+	<button id = "unfilter">Undo Filter</button>
+
+	<script type="text/javascript">
+		for (let index = 0; index < 11; index++) {
+			document.writeln("<br> <br> <div id = 'display" + index + "' style = 'font-family: cursive; text-align: left;'></div> <br> <br>");
+		}
+	
+	</script>
+
+	<script type="text/javascript">
+		// These are the functions to sort data into desired printout format
+
+		/* print() */
+		function print(curr_item){
+			song_item = curr_item.title + "<br>";
+			song_item += "Artist: " + curr_item.artist + "<br>";
+			song_item += "Genres: " + curr_item.music_genre[0];
+			for(let num_genre = 1; num_genre < curr_item.music_genre.length; num_genre++) {
+				song_item += ", " + curr_item.music_genre[num_genre];
+			}
+			song_item += "<br>" + "Released" + curr_item.release_year + "<br>";
+			return song_item;
+		}
+		/* select_genres(music_genre) */
+		function select_genres(music_genre) {
+			select = "<select id = 'genre_select'>";
+			for (let j = 0; j < music_genre.length; j++) {
+				select += "<option> " + music_genre[j] + "</option>";
+			}
+			select += "</select>";
+			return select;
+		}
+
+		/* under_genres(genres, curr_genre) 
+		 * Purpose: Check for overlapping, 
+		 * Return: boolean -- true if it exists in the master list, false otherwise 
+		*/
+		function under_genres(genres, curr_genre){
+			for (let index = 0; index < genres.length; index++) {
+				if (curr_genre == genres[index]) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/* complie_genres(genres, curr_genre) 
+		 * Purpose: Loop through all songs and collect a master list of genres
+		 * Return: Master arrays of genres
+		*/
+		function compile_genres(songs) {
+			var genres = [];
+			for (let k = 0; k < songs.length; k++) {
+				// Loop through all songs and retrieve the song elements' current genres
+				curr_genre = songs[k].music_genre;
+
+				/* Check through all genres of a provided song, collect the ones 
+				 * that are not already in the list
+				 */
+				for (let j = 0; j < curr_genre.length; j++) {
+					// Push the current genres onto the elements 
+					if (!under_genres(genres, curr_genre[j])) {
+						genres.push(curr_genre[j]);
+					}
+				}
+
+			}
+			return genres;
+		}
+
+
+		/* toFilter()
+		 * Purpose: Display only the songs that contain certain genre
+		 * Return: nothing
+		*/
+		function toFilter(genres, songs) {
+			for (let i = 0; i < songs.length; i++) {
+				$("#display"+i).show();
+				if(!under_genres(songs[i].music_genre, genres)) {
+					$("#display"+i).hide();
+				}
+			}
+		}
+
+
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			// Load JSON file
+			$.getJSON("https://yixian-yixian.github.io/webprog/hw09/songs.json", function(data) {
+				// Store all songs as a string array
+				var songs = [];  
+				for (let index = 0; index < data.length; index++){
+					songs.push(data[index]);
+				}
+
+				// display all songs 
+				for (let i = 0; i < songs.length; i++){
+					$("#display" + i).html(print(songs[i]) + "<br>");
+				}
+
+				// 
+				$("#selection").html(select_genres(compile_genres(songs)));
+
+				// Filter all songs by genres
+				$("#filter").click(function(){
+					toFilter($("#genre_select").val(),songs)
+				})
+
+				// Unfilter all songs -- display all song
+				$("#unfilter").click(function() {
+					for (let i = 0; i < data.length; i++){
+						$("#display"+i).show();
+					}
+				})
+			})
+
+		})
+		
+
+
+
+	</script>
+
+
+</body>
+</html>
