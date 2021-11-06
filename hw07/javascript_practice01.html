@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Part I</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style type="text/css">
+		table,
+			td {
+			    border: 1px solid #333;
+			}
+
+			thead,
+			tfoot {
+			    background-color: #333;
+			    color: #fff;
+			}
+			p{
+				text-align: center;
+				position: center;
+			}
+			body{
+	 			background-color: beige;
+	 		}
+
+	 		h1{
+				font-family: optima;
+				text-align: center;
+				padding-left: 100px;
+				padding-right: 100px;
+			}
+
+			p {
+				font-family: optima;
+			}
+
+			#submit{
+				 	background-color: beige;
+				 	font-size: 15px;
+			}
+
+			#order_info{
+				border: dashed;
+			 	/*box-sizing*/
+			 	overflow: hidden;
+			 	margin-top: 20px;
+			 	margin-left: 120px;
+			 	margin-right: 350px;
+			 	padding-top: 30px;
+			 	padding-bottom: 30px;
+			 	width: 80%;
+			 	text-align: center;
+			}
+
+			#final{
+				position: ;
+			}
+			
+
+	</style>
+</head>
+
+<body>
+	<h1> Welcome to Joe's Hot Dog (order version)</h1>
+
+	<script language="javascript">
+
+		function MenuItem(name, cost)
+		{
+			this.name = name;
+			this.cost=cost;
+		}
+
+		menuItems = new Array(
+			new MenuItem("Hot Dogs", 2.00),
+			new MenuItem("Soda", 1.00),
+			new MenuItem("Fries", 2.00)
+		);
+
+		function makeSelect(name)
+		{
+			var t= "";
+			t = "<select name='" + name + "' size='1'>";
+			t += "<option>" + 0 + "</option>";
+			t += "<option>" + 1 + "</option>";
+			t += "<option>" + 2 + "</option>";
+			t += "<option>" + 3 + "</option>";
+			t += "<option>" + 4 + "</option>";
+			t += "<option>" + 5 + "</option>";
+			t += "<option>" + 10 + "</option>";
+			t += "<option>" + 15 + "</option>";
+			t += "<option>" + 20 + "</option>";
+			t+= "</select>"; 
+			return t;
+		}
+	</script>
+
+	<form id = "order_info">
+		<table border="0" cellpadding="3">
+		  <tr>
+		    <th>Select Item</th>
+		    <th>Item Name</th>
+		    <th>Cost Each</th>
+		    <th>Total Cost</th>
+		  </tr>
+
+
+		<!-- Creating the table below -->
+			<script language="javascript">
+			  var s = "";
+			  for (i=0; i< menuItems.length; i++)
+			  {
+				  s += "<tr><td>";
+				  s += makeSelect("quan" + i);
+				  s += "</td><td>" + menuItems[i].name + "</td>";
+				  s += "<td> $ " + menuItems[i].cost.toFixed(2) + "</td>";
+				  s += "<td>$<input type='text' name='cost'/></td></tr>";
+			  }
+			  document.writeln(s);
+			</script>
+		</table>
+		<br>
+			<tr> 
+				Total: $<input type="text"  name='total' id="total" />
+			</tr>
+			
+			<tr>
+				<input type = "button" value = "Submit Order" id = "submit" />
+			</tr>
+			<div id = "final"></div>
+	</form>
+	
+	</body>
+	</html>
+
+	<script language = "javascript">
+		$(document).ready(function() {
+			var order_item = "";
+			$("select").change(function() {
+				var id = this.name[4]; // Shows which row is changed in the tables
+				calculateCost(menuItems[id].cost, this.value, id);
+				calculateTotal();
+				order_item += "You ordered " + this.value + " pieces of " + menuItems[id].name+ "<br>";
+		})
+
+		/* When submission button is pressed, the function:
+		   1) validate all important fields
+		   2) display a message that thanks the user for their order 
+		   		displays the order, the pickup or delivery time as well as the total amount for the order.
+		   3) display the order in a separate window/tab instead of using an alert
+		*/
+		$('#submit').on("click",function(){
+			var proceed = validate(); 
+			console.log(proceed);
+			if (proceed) {
+				displayOrder();
+			}
+		
+		});
+
+		/* validate()
+		 * Parameter: none
+		 * Return: error boolean -- true: error present do not proceed.
+		 * 													false: error absent proceed
+		*/
+		function validate(){
+			/* At Least one item must be ordered*/
+			var order_err = true;
+			if (calculateTotal() != 0 && calculateTotal() != NaN ) {
+				order_err = false;
+			}	else {
+				alert("You have not ordered anything!");
+			}
+			return !order_err;
+		}
+
+		/* displayOrder()
+		 * Parameter: none
+		 * Return: number of items ordered, each item name
+		*/
+		function displayOrder() {
+			console.log("New Window opened");
+			var display_on_screen = "Thank you for your order! <br>";
+			display_on_screen += order_item;
+			display_on_screen += "Your total is: $" + calculateTotal().toFixed(2) + "<br>";
+			$("#final").html(display_on_screen);
+
+	}
+
+		/* calculateTotal() 
+		 * Parameter: none
+		 * Return: none 
+		 * Modify the region for total, subtotal and tax
+		*/
+		function calculateCost(cost, quan, index) {
+			var itemCost = quan * cost; 
+			document.getElementsByName('cost')[index].value = itemCost.toFixed(2);
+		}
+
+		/* calculateTotal() 
+		 * Parameter: none
+		 * Return: Total
+		 * Modify the region for total, subtotal and tax
+		*/
+		function calculateTotal(){
+			var Total = 0;
+			for(let i = 0; i < menuItems.length; i++){
+				if (document.getElementsByName('cost')[i].value != ""){
+					Total += parseFloat(document.getElementsByName('cost')[i].value);
+				}
+			};
+			$("[name = 'total']").val(Total.toFixed(2));
+			return Total;
+		}
+	})
+		</script>
+
+
+
+
