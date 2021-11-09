@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<style type="text/css">
+		body{
+			background-color: beige;
+		}
+		td, th {
+		  border: 2px solid black;
+		  text-align: left;
+		  padding: 8px;
+		}
+
+		#money{
+			padding-left: 100px;
+			padding-right: 100px;
+		}
+
+		#intro{
+			font-family: verdana;
+			padding-left: 40px;
+			padding-right: 20px;
+			padding-bottom: 20px;
+			padding-top: 20px;
+			border: 5px solid;
+			width:fit-content;
+		}
+		#answer{
+			font-family: verdana;
+			color: #00254d;
+		}
+
+		.floatchild{
+			width: 50%;
+			float: left;
+		}
+		
+
+	</style>
+	<title>API Practice</title>
+</head>
+<body>
+	<h1> Check the most updated exchange currency! </h1>
+	<div class = "floatchild" id = "data"></div>
+	<div class = "floatchild" id = "answer"> 
+		• I selected the Exchange currency and it provides most updated exchange currency rate with USD.  <br> 
+		• I found the API on the publically available API github. <br>
+		• I used API for Exchanged Rates that provides the most updated USD dollar exchange rates with 160 other currencies.<br>
+		• The website was  <a href="https://www.exchangerate-api.com/docs/overview"> https://www.exchangerate-api.com/docs/overview </a>
+		• The website extracted and compiled the information for different currencies and allowed access via a table. <br> 
+		• <b> API is helpful for the following applicaitons </b> <br> 
+			1. Straightforward access for exchange currency rates <br> 
+			2. Direct display of the most recent updates time <br> 
+	</div>
+
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			loadData();
+		})
+
+		function printData(codes) {
+			var display;
+			var master_exchange;
+			display = "<div id = 'intro'> The base code of the exchange values is: <mark>" + codes["base_code"] + "</mark>. <br>";
+			display += "The infomration last updated was at: <mark>" + codes["time_last_update_utc"] + "</mark>. <br>";
+			display += "You can find these exchange rates available: <br>";
+			display += "<table id = 'money'> <tr> <th> Currency </th> <th> Exchange Rate </th> </tr>";
+			var loop = codes["rates"];
+			for (const [key, value] of Object.entries(loop)) {
+				display += "<tr> <td>" + `${key}`+ "</td>";
+				display += "<td>" + `${value}` + "</td>";
+			}
+			
+			return display;
+		}
+
+
+		function loadData() {
+			request = new XMLHttpRequest();
+			console.log("1 - request object created");
+
+			request.open("GET","https://open.er-api.com/v6/latest/USD",true);
+			console.log("2 - opened request file successfully");
+
+			request.onreadystatechange = function() {
+
+				if (request.readyState == 4 && request.status == 200){
+					console.log("5 - response received ");
+					result = request.responseText;
+					data = JSON.parse(result);
+					
+					document.getElementById("data").innerHTML = printData(data);
+				} else if (request.readyState == 4 && request.status != 200) {
+					document.getElementById("data").innerHTML = "Something is wrong. Check the logs to see where went off the rail.";
+
+				} else if (request.readyState == 3) {
+					document.getElementById("data").innerHTML = "Too Soon! Try Again.";
+
+				}
+			}
+
+			request.send();
+			console.log("4 - Request sent.");
+		}
+
+	</script>
+	
+
+</body>
+</html>
